@@ -73,14 +73,6 @@ async function main() {
             },
           ],
         },
-        additionalImages: {
-          create: [
-            {
-              id: generateShortId(4),
-              url: `https://picsum.photos/seed/${blogId}/800/400`,
-            },
-          ],
-        },
       },
     });
     console.log(`✅ Created blog: ${b.title}`);
