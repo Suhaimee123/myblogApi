@@ -43,7 +43,14 @@ async function bootstrap() {
     logger.warn('Application is shutting down (SIGINT)...');
   });
 
+  await app.init();
   return app.getHttpAdapter().getInstance();
 }
 
-export default bootstrap();
+let server: any;
+export default async (req: any, res: any) => {
+  if (!server) {
+    server = await bootstrap();
+  }
+  return server(req, res);
+};
