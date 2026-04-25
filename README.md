@@ -68,13 +68,22 @@ npm run start:prod
 
 ---
 
-## 🏗 โครงสร้างของโปรเจกต์ (Architecture)
+## 🏗 โครงสร้างโปรเจกต์ (Project Structure)
 
-- `src/auth`: ระบบสมัครสมาชิกและเข้าสู่ระบบ (JWT)
-- `src/blogs`: จัดการเนื้อหาบล็อก (สร้าง, แก้ไข, ลบ, ค้นหา)
-- `src/comments`: ระบบแสดงความคิดเห็น (มีการกรองสถานะ PENDING/APPROVED)
-- `src/storage`: ระบบจัดการไฟล์ภาพผ่าน Firebase Storage
-- `src/prisma`: ตัวจัดการการเชื่อมต่อฐานข้อมูล
+โปรเจกต์นี้ใช้โครงสร้างแบบ **Modular Architecture** ของ NestJS โดยแบ่งตามหน้าที่การทำงาน:
+
+### 📂 โฟลเดอร์ `src/` (Core Logic)
+- **`auth/`**: ระบบความปลอดภัย, Login (JWT), และ Guard ป้องกัน API
+- **`blogs/`**: ระบบบล็อก (มีทั้ง `Controller` สำหรับบุคคลทั่วไป และ `AdminController` สำหรับผู้ดูแล)
+- **`comments/`**: ระบบแสดงความคิดเห็น (รองรับการอนุมัติ/ไม่อนุมัติ โดย Admin)
+- **`storage/`**: จัดการไฟล์ภาพ (สร้าง Signed URL เพื่ออัปโหลดเข้า Firebase Storage)
+- **`prisma/`**: ตัวเชื่อมต่อฐานข้อมูล (Database Client)
+- **`utils/`**: เครื่องมือเสริมอื่นๆ เช่น ตัวสร้าง ID สั้น 4 หลัก
+
+### 📂 ไฟล์การตั้งค่า (Configurations)
+- **`prisma/schema.prisma`**: นิยามโครงสร้าง Database Table
+- **`nest-cli.json`**: ตั้งค่า NestJS และเปิดใช้งาน Swagger Plugin อัตโนมัติ
+- **`.env`**: เก็บค่าความลับ เช่น Database URL และ JWT Secret
 
 ---
 
