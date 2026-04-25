@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id               String      @id
+  title            String
+  slug             String      @unique
+  summary          String      @db.Text
+  content          String      @db.LongText
+  published        Boolean     @default(false)
+  allowComments    Boolean     @default(true)
+  viewCount        Int         @default(0)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  deletedAt        DateTime?
+  additionalImages BlogImage[]
+  comments         Comment[]
+}
+
+model BlogImage {
+  id     String @id
+  url    String
+  blog   Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId String
+}
+
+enum CommentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Comment {
+  id        String        @id
+  name      String
+  message   String        @db.Text
+  status    CommentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  blog      Blog          @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId    String
+}
+
+model User {
+  id       String @id
+  username String @unique
+  password String
+  name     String
+}
