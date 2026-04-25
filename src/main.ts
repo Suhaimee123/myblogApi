@@ -33,12 +33,17 @@ async function bootstrap() {
   });
   
   const port = process.env.PORT ?? 8080;
-  await app.listen(port);
-  logger.log(`Application is running on: http://localhost:${port}`);
-  logger.log(`Swagger documentation available at: http://localhost:${port}/api/docs`);
+  if (process.env.NODE_ENV !== 'production') {
+    await app.listen(port);
+    logger.log(`Application is running on: http://localhost:${port}`);
+    logger.log(`Swagger documentation available at: http://localhost:${port}/api/docs`);
+  }
 
   process.on('SIGINT', () => {
     logger.warn('Application is shutting down (SIGINT)...');
   });
+
+  return app.getHttpAdapter().getInstance();
 }
-bootstrap();
+
+export default bootstrap();
