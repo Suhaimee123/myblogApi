@@ -59,3 +59,8 @@ export default async (req: any, res: any) => {
   }
   return server(req, res);
 };
+
+// รันแบบปกติถ้าไม่ได้อยู่บน Vercel
+if (!process.env.VERCEL) {
+  bootstrap();
+}
