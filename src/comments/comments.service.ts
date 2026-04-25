@@ -51,8 +51,4 @@ export class CommentsService {
       data: { status: 'REJECTED' },
     });
   }
-
-  async remove(id: string) {
-    return this.prisma.comment.delete({ where: { id } });
-  }
 }

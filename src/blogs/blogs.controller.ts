@@ -30,12 +30,6 @@ export class BlogsController {
     });
   }
 
-  @Get('check-id/:id')
-  @ApiOperation({ summary: 'ตรวจสอบว่ามี ID บล็อกนี้อยู่ในระบบแล้วหรือไม่' })
-  checkId(@Param('id') id: string) {
-    return this.blogsService.checkId(id);
-  }
-
   @Get(':slug')
   @ApiOperation({ summary: 'ดึงข้อมูลบล็อกเนื้อหาเดียวด้วย Slug' })
   findOne(@Param('slug') slug: string) {

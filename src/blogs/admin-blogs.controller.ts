@@ -46,6 +46,12 @@ export class AdminBlogsController {
     });
   }
 
+  @Get('check-id/:id')
+  @ApiOperation({ summary: 'ตรวจสอบว่ามี ID บล็อกนี้อยู่ในระบบแล้วหรือไม่ (สำหรับ Admin)' })
+  checkId(@Param('id') id: string) {
+    return this.blogsService.checkId(id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'ดึงข้อมูลบล็อกเนื้อหาเดียวด้วย ID (สำหรับ Admin)' })
   findOne(@Param('id') id: string) {
